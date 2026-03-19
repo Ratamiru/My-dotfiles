@@ -1,0 +1,76 @@
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    font-size: 12px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    padding: 3px;
+}
+
+window#waybar {
+    background: #000000;
+    margin: 10px;
+}
+
+tooltip {
+    background: #000000;
+    border-radius: 0;
+}
+
+#workspaces,
+#clock,
+#cpu,
+#memory,
+#language,
+#pulseaudio,
+#custom-bluetooth,
+#custom-vpn,
+#network {
+    color: #ffffff;
+    padding: 2px 10px;
+}
+
+#workspaces button {
+    color: rgba(255, 255, 255, 0.3);
+    background: transparent;
+    padding: 0 6px;
+}
+
+#workspaces button.active,
+#workspaces button.focused {
+    color: #c9b03e;
+}
+
+#workspaces button.urgent {
+    color: #f38ba8;
+}
+
+#workspaces button:hover {
+    background: inherit;
+    color: #c9b03e;
+}
+
+#pulseaudio.muted {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+#custom-bluetooth.connected {
+    color: #c9b03e;
+}
+
+#custom-bluetooth.off {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+#custom-vpn.connected {
+    color: #c9b03e;
+}
+
+#custom-vpn.disconnected {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+#network.disconnected {
+    color: rgba(255, 255, 255, 0.3);
+}

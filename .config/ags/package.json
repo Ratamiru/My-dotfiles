@@ -1,0 +1,6 @@
+{
+    "name": "niri-bar",
+    "dependencies": {
+        "astal": "/usr/share/astal/gjs"
+    }
+}

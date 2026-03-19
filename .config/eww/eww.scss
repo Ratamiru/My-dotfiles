@@ -1,0 +1,433 @@
+// ── Colors (matching waybar theme) ──────────────────────────────
+$bg:       rgba(20, 20, 30, 0.85);
+$card-bg:  rgba(40, 40, 55, 0.9);
+$text:     rgba(255, 255, 255, 0.85);
+$text-dim: rgba(255, 255, 255, 0.5);
+$accent:   #7fc8ff;
+$danger:   #ff6b6b;
+$warn:     #ffc87f;
+$radius:   14px;
+$font:     "JetBrainsMono Nerd Font";
+
+// ── Dashboard container ────────────────────────────────────────
+.dashboard {
+  padding: 16px;
+  background: $bg;
+  border-radius: $radius;
+  font-family: $font;
+  color: $text;
+}
+
+// ── Calendar ───────────────────────────────────────────────────
+.cal-card {
+  background: $card-bg;
+  border-radius: $radius;
+  padding: 12px;
+  min-width: 300px;
+}
+
+.cal {
+  font-family: $font;
+  font-size: 13px;
+  color: $text;
+
+  &:selected {
+    color: $accent;
+  }
+
+  &:indeterminate {
+    color: $text-dim;
+  }
+
+  &.header {
+    font-size: 14px;
+    font-weight: bold;
+    color: $text;
+  }
+
+  &.button {
+    color: $text-dim;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+}
+
+// ── Weather ────────────────────────────────────────────────────
+.weather-card {
+  background: $card-bg;
+  border-radius: $radius;
+  padding: 16px;
+  min-width: 320px;
+}
+
+.weather-icon {
+  font-size: 36px;
+  color: $accent;
+}
+
+.weather-temp {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.weather-desc {
+  font-size: 13px;
+  color: $text-dim;
+}
+
+.weather-details {
+  font-size: 12px;
+  color: $text-dim;
+  margin-top: 4px;
+}
+
+.weather-forecast {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.forecast-day {
+  padding: 4px 8px;
+}
+
+.forecast-icon {
+  font-size: 18px;
+  color: $accent;
+}
+
+.forecast-temp {
+  font-size: 12px;
+}
+
+.forecast-date {
+  font-size: 11px;
+  color: $text-dim;
+}
+
+// ── Media player ───────────────────────────────────────────────
+.media-card {
+  background: $card-bg;
+  border-radius: $radius;
+  padding: 16px;
+}
+
+.media-art {
+  border-radius: 10px;
+  min-width: 80px;
+  min-height: 80px;
+}
+
+.media-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.media-artist {
+  font-size: 12px;
+  color: $text-dim;
+}
+
+.media-buttons {
+  margin-top: 8px;
+}
+
+.media-btn {
+  font-size: 22px;
+  background: transparent;
+  color: $text;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 8px;
+
+  &:hover {
+    color: $accent;
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.play-btn {
+  font-size: 28px;
+}
+
+// ── Audio switcher ─────────────────────────────────────────────
+.audio-card {
+  background: $card-bg;
+  border-radius: $radius;
+  padding: 12px 16px;
+  min-width: 280px;
+}
+
+.audio-header {
+  font-size: 13px;
+  font-weight: bold;
+  color: $text-dim;
+  margin-bottom: 4px;
+}
+
+.audio-sink-btn {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.audio-active {
+  background: rgba($accent, 0.15);
+
+  .audio-sink-icon {
+    color: $accent;
+  }
+
+  .audio-sink-label {
+    color: $text;
+  }
+}
+
+.audio-sink-icon {
+  font-size: 18px;
+  color: $text-dim;
+}
+
+.audio-sink-label {
+  font-size: 13px;
+  color: $text-dim;
+}
+
+// ── Bluetooth ─────────────────────────────────────────────────
+.bt-card {
+  background: $card-bg;
+  border-radius: $radius;
+  padding: 12px 16px;
+  min-width: 280px;
+}
+
+.bt-header {
+  font-size: 13px;
+  font-weight: bold;
+  color: $text-dim;
+}
+
+.bt-power-btn {
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.08);
+  color: $text-dim;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 10px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.bt-power-on {
+  color: $accent;
+  background: rgba($accent, 0.15);
+}
+
+.bt-mgr-btn {
+  font-size: 14px;
+  background: transparent;
+  color: $text-dim;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+
+  &:hover {
+    color: $accent;
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.bt-device-btn {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.bt-connected {
+  background: rgba($accent, 0.12);
+}
+
+.bt-device-icon {
+  font-size: 18px;
+  color: $text-dim;
+
+  .bt-connected & {
+    color: $accent;
+  }
+}
+
+.bt-device-name {
+  font-size: 13px;
+  color: $text;
+}
+
+.bt-device-status {
+  font-size: 11px;
+  color: $text-dim;
+
+  .bt-connected & {
+    color: $accent;
+  }
+}
+
+.bt-empty {
+  font-size: 12px;
+  color: $text-dim;
+  padding: 8px 0;
+}
+
+// ── VPN ────────────────────────────────────────────────────────
+.vpn-card {
+  background: $card-bg;
+  border-radius: $radius;
+  padding: 12px 16px;
+}
+
+.vpn-header {
+  font-size: 13px;
+  font-weight: bold;
+  color: $text-dim;
+}
+
+.vpn-toggle-btn {
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.08);
+  color: $text-dim;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 10px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.vpn-toggle-on {
+  color: $accent;
+  background: rgba($accent, 0.15);
+}
+
+.vpn-item-btn {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
+  min-width: 140px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.vpn-active {
+  background: rgba($accent, 0.12);
+
+  .vpn-item-icon {
+    color: $accent;
+  }
+
+  .vpn-item-status {
+    color: $accent;
+  }
+}
+
+.vpn-item-icon {
+  font-size: 18px;
+  color: $text-dim;
+}
+
+.vpn-item-name {
+  font-size: 13px;
+  color: $text;
+}
+
+.vpn-item-status {
+  font-size: 11px;
+  color: $text-dim;
+}
+
+// ── Quick folders ──────────────────────────────────────────────
+.folders-card {
+  background: $card-bg;
+  border-radius: $radius;
+  padding: 12px 8px;
+}
+
+.folder-btn {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 6px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.folder-icon {
+  font-size: 22px;
+  color: $accent;
+}
+
+.folder-label {
+  font-size: 10px;
+  color: $text-dim;
+}
+
+// ── Power buttons ──────────────────────────────────────────────
+.power-card {
+  background: $card-bg;
+  border-radius: $radius;
+  padding: 12px 8px;
+}
+
+.power-btn {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.power-icon {
+  font-size: 22px;
+  color: $text;
+}
+
+.power-warn {
+  .power-icon {
+    color: $warn;
+  }
+}
+
+.power-danger {
+  .power-icon {
+    color: $danger;
+  }
+
+  &:hover {
+    background: rgba($danger, 0.15);
+  }
+}

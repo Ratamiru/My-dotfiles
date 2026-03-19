@@ -1,0 +1,20 @@
+# AGS node_modules (ставится через npm install)
+.config/ags/node_modules/
+
+# Кэши и временное
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+.cache/
+
+# Секреты — не коммитить!
+# home/.gitconfig содержит только имя/email — ок
+.config/git/credentials
+home/.ssh/
+
+# EasyEffects пресеты (могут быть большими)
+# Раскомментируй если не нужны:
+# .config/easyeffects/
+
+# Локальные оверрайды Hyprland (мониторы под конкретное железо)
+# .config/hypr/monitors.conf
