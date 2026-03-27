@@ -6,20 +6,16 @@
 
 | Компонент | Программа |
 |-----------|-----------|
-| WM | Niri (основной) / Hyprland (запасной) |
-| Bar | AGS (ags) + Waybar |
-| Dashboard | EWW |
+| WM | Niri |
+| Bar / Notifs / Lock / Wallpaper / Theming | Noctalia |
 | Launcher | Fuzzel |
-| Notifications | Mako |
 | Terminal | Foot / Kitty |
 | Shell | Zsh (oh-my-zsh + p10k) / Fish |
 | Prompt | Starship (в fish) |
-| Lock screen | Hyprlock |
-| Power menu | Wlogout |
-| Wallpaper | swww |
-| Colors | Matugen |
 | Editor | Neovim (LazyVim) |
 | Monitor | Btop |
+| Audio FX | EasyEffects |
+| Visualizer | Cava |
 
 ## Быстрый старт
 
@@ -43,17 +39,10 @@ chmod +x install.sh
 ./install.sh
 ```
 
-### 4. AGS (после install.sh)
+### 4. Настройка под ноут
 
-```bash
-cd ~/.config/ags
-npm install
-```
-
-### 5. Настройка под ноут
-
-- **Мониторы**: отредактируй `~/.config/niri/config.kdl` — закомментируй/удали блок `output "HDMI-A-1"`, оставь только `output "eDP-1"`
-- **Hyprland мониторы**: отредактируй `~/.config/hypr/monitors.conf`
+- **Мониторы**: отредактируй `~/.config/niri/config.kdl` — закомментируй блок `output "HDMI-A-1"`, оставь только `output "eDP-1"`
+- **Noctalia мониторы**: в `settings.json` поправь `osd.monitors`, `notifications.monitors` и `wallpaper.monitorDirectories`
 - **SSH ключи**: добавь вручную в `~/.ssh/`
 
 ## Обновление dotfiles с текущей машины

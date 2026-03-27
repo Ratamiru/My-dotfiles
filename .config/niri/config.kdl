@@ -54,7 +54,7 @@ input {
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 0
+    gaps 8
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -138,21 +138,17 @@ layout {
     border {
         // The settings are the same as for the focus ring.
         // If you enable the border, you probably want to disable the focus ring.
-        off
 
-        width 4
-        active-color "#ffc87f"
-        inactive-color "#505050"
+        width 3
+
+        // Frutiger Aero: lavender-to-deep-violet gradient for active window
+        active-gradient from="#e2c8ff" to="#7c3fd6" angle=135
+
+        // Subtle purple-tinted dark for inactive
+        inactive-gradient from="#3d3550" to="#6b5a80" angle=135
 
         // Color of the border around windows that request your attention.
         urgent-color "#9b0000"
-
-        // Gradients can use a few different interpolation color spaces.
-        // For example, this is a pastel rainbow gradient via in="oklch longer hue".
-        //
-        // active-gradient from="#e5989b" to="#ffb4a2" angle=45 relative-to="workspace-view" in="oklch longer hue"
-
-        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
 
     // You can enable drop shadows for windows.
@@ -205,7 +201,7 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-spawn-at-startup "mako"
+spawn-at-startup "qs" "-c" "noctalia-shell"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "overviewlistener"
 spawn-at-startup "eww" "daemon"
@@ -275,20 +271,10 @@ window-rule {
     // block-out-from "screencast"
 }
 
-// Terminal (kitty): rounded corners + transparency
-// NOTE: niri не поддерживает blur нативно (ждём PR #1634).
-// Когда blur будет доступен, добавить сюда: blur { on }
-window-rule {
-    match app-id="kitty"
-    opacity 0.85
-    geometry-corner-radius 12
-    clip-to-geometry true
-}
 
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
-/-window-rule {
-    geometry-corner-radius 12
+// Frutiger Aero: rounded corners for all windows.
+window-rule {
+    geometry-corner-radius 14
     clip-to-geometry true
 }
 
@@ -310,7 +296,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+D hotkey-overlay-title="Run an Application: rofi" { spawn "appdrawer"; }
+    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+P {spawn "powermenu"; }
     Mod+B {spawn "bgselector"; }
     Mod+Shift+D { spawn-sh "~/.config/eww/scripts/toggle-dashboard.sh"; }
@@ -356,7 +342,7 @@ binds {
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-down; }
     Mod+K     { focus-window-up; }
-    Mod+L     { focus-column-right; }
+    Mod+L     hotkey-overlay-title="Lock Screen" { spawn "loginctl" "lock-session"; }
 
     Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Down  { move-window-down; }
@@ -618,3 +604,86 @@ output "eDP-1" {
 output "HDMI-A-1" {
     scale 1
 }
+
+animations {
+    // Glitch open: глитч + хроматическая аберрация при появлении
+    window-open {
+        duration-ms 300
+        curve "linear"
+        custom-shader r"
+            float ghash(float n) {
+                return fract(sin(n) * 43758.5453123);
+            }
+
+            vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+                float p = niri_clamped_progress;
+                float strength = pow(1.0 - p, 1.5);
+
+                // Горизонтальное смещение полос
+                float time_step = floor(p * 12.0);
+                float band = floor(coords_geo.y * 16.0);
+                float disp = (ghash(band * 0.37 + time_step * 11.13 + niri_random_seed * 7.0) - 0.5)
+                             * 0.1 * strength;
+
+                vec2 uv = vec2(coords_geo.x + disp, coords_geo.y);
+
+                // Хроматическая аберрация (R/B расходятся по горизонтали)
+                float ab = 0.02 * strength;
+                float cr = texture2D(niri_tex, (niri_geo_to_tex * vec3(uv.x + ab, uv.y, 1.0)).st).r;
+                float cg = texture2D(niri_tex, (niri_geo_to_tex * vec3(uv, 1.0)).st).g;
+                float cb = texture2D(niri_tex, (niri_geo_to_tex * vec3(uv.x - ab, uv.y, 1.0)).st).b;
+                float alpha = texture2D(niri_tex, (niri_geo_to_tex * vec3(uv, 1.0)).st).a;
+
+                vec4 color = vec4(cr, cg, cb, alpha);
+
+                // Мигание полос в начале
+                float flicker = ghash(band * 3.7 + time_step * 5.3 + niri_random_seed * 13.0);
+                color *= mix(1.0, step(0.3, flicker), strength * 0.8);
+
+                return color * p;
+            }
+        "
+    }
+
+    // TV turn-off: окно схлопывается в линию с CRT-свечением
+    window-close {
+        duration-ms 300
+        curve "linear"
+        custom-shader r"
+            vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+                float p = niri_clamped_progress;
+                float ep = p * p; // ease in
+
+                // Вертикальное схлопывание к центру
+                float squish = max(1.0 - ep, 0.001);
+
+                // Лёгкое горизонтальное растяжение (эффект CRT)
+                float stretch = 1.0 + ep * 0.08;
+
+                vec2 uv = coords_geo.xy;
+                uv.y = (uv.y - 0.5) / squish + 0.5;
+                uv.x = (uv.x - 0.5) / stretch + 0.5;
+
+                vec3 coords_tex = niri_geo_to_tex * vec3(uv, 1.0);
+                vec4 color = texture2D(niri_tex, coords_tex.st);
+
+                // Белое свечение горизонтальной линии
+                float dist = abs(coords_geo.y - 0.5);
+                float glow_r = squish * 0.4 + 0.005;
+                float glow = exp(-dist * dist / (glow_r * glow_r)) * ep * 0.8;
+                color.rgb += glow * color.a;
+
+                return color * (1.0 - p);
+            }
+        "
+    }
+}
+
+// Затемнение неактивных окон
+window-rule {
+    match is-active=false
+    opacity 0.75
+}
+
+include "./noctalia.kdl"
+

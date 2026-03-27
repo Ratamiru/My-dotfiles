@@ -13,7 +13,6 @@ Rectangle {
     id: root
 
     property var screen: root.QsWindow.window?.screen
-    property var brightnessMonitor: Brightness.getMonitorForScreen(screen)
 
     implicitWidth: contentItem.implicitWidth + root.horizontalPadding * 2
     implicitHeight: contentItem.implicitHeight + root.verticalPadding * 2
@@ -30,22 +29,6 @@ Rectangle {
             rightMargin: root.horizontalPadding
             topMargin: root.verticalPadding
             bottomMargin: root.verticalPadding
-        }
-
-        Loader {
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-            visible: active
-            active: Config.options.sidebar.quickSliders.showBrightness
-            sourceComponent: QuickSlider {
-                materialSymbol: "brightness_6"
-                value: root.brightnessMonitor.brightness
-                onMoved: {
-                    root.brightnessMonitor.setBrightness(value)
-                }
-            }
         }
 
         Loader {

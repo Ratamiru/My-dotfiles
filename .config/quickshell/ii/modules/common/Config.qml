@@ -184,6 +184,12 @@ Singleton {
                     property bool enableSidebar: true
                     property real clockFactor: 1.2
                 }
+                property JsonObject visualizer: JsonObject {
+                    property bool enable: false
+                    property real maxHeightFactor: 0.25 // Max bar height as fraction of screen height
+                    property real spacing: 2             // Pixels between bars
+                    property real opacity: 0.55
+                }
             }
 
             property JsonObject bar: JsonObject {

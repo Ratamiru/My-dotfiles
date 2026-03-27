@@ -261,6 +261,16 @@ Variants {
                 }
             }
 
+            // Sound reactive visualizer
+            Visualizer {
+                anchors {
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
+                }
+                height: bgRoot.screen.height * Config.options.background.visualizer.maxHeightFactor
+            }
+
             // The clock
             Loader {
                 id: clockLoader
